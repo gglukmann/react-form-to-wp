@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ReactFormToWP
  */
@@ -17,26 +18,54 @@ if (!defined('ABSPATH')) {
   die;
 }
 
+global $rftw_db_version;
+$rftw_db_version = '1.0';
+
 class ReactFormToWP
 {
-  function __construct()
+  public function activate()
+  {
+    $this->create_db();
+  }
+
+  public function deactivate()
   { }
 
-  function activate()
+  public function uninstall()
   { }
 
-  function deactivate()
-  { }
+  private function create_db()
+  {
+    global $wpdb;
+    global $rftw_db_version;
 
-  function uninstall()
-  { }
+    $table_name = $wpdb->prefix . "react_form_to_wp";
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+      id mediumint(9) NOT NULL AUTO_INCREMENT,
+      time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+      name tinytext NOT NULL,
+      email tinytext NOT NULL,
+      message text NOT NULL,
+      PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    add_option('rftw_db_version', $rftw_db_version);
+  }
 }
 
-// activate
 if (class_exists('ReactFormToWP')) {
   $reactFromToWP = new ReactFormToWP();
 }
 
+// activation
+register_activation_hook(__FILE__, array($reactFromToWP, 'activate'));
+
 // deactivate
+register_deactivation_hook(__FILE__, array($reactFromToWP, 'deactivate'));
 
 // uninstall
