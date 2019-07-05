@@ -18,44 +18,62 @@ if (!defined('ABSPATH')) {
   die;
 }
 
-global $rftw_db_version;
-$rftw_db_version = '1.0';
+// global $rftw_db_version;
+// $rftw_db_version = '1.0';
 
 class ReactFormToWP
 {
+  function __construct()
+  {
+    // add_action('init', array($this, 'create_db_table'));
+    add_action('init', array($this, 'custom_post_type'));
+  }
+
   public function activate()
   {
-    $this->create_db();
+    flush_rewrite_rules();
+    // $this->create_db_table();
+    $this->custom_post_type();
   }
 
   public function deactivate()
-  { }
-
-  public function uninstall()
-  { }
-
-  private function create_db()
   {
-    global $wpdb;
-    global $rftw_db_version;
-
-    $table_name = $wpdb->prefix . "react_form_to_wp";
-    $charset_collate = $wpdb->get_charset_collate();
-
-    $sql = "CREATE TABLE $table_name (
-      id mediumint(9) NOT NULL AUTO_INCREMENT,
-      time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-      name tinytext NOT NULL,
-      email tinytext NOT NULL,
-      message text NOT NULL,
-      PRIMARY KEY (id)
-    ) $charset_collate;";
-
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
-
-    add_option('rftw_db_version', $rftw_db_version);
+    flush_rewrite_rules();
   }
+
+  // public function uninstall()
+  // { }
+
+  public function custom_post_type()
+  {
+    register_post_type('form', ['public' => true, 'label' => 'Form']);
+  }
+
+  // public function create_db_table()
+  // {
+  //   global $wpdb;
+  //   global $rftw_db_version;
+
+  //   $table_name = $wpdb->prefix . "react_form_to_wp";
+  //   $charset_collate = $wpdb->get_charset_collate();
+
+  //   $sql = "CREATE TABLE $table_name (
+  //     id mediumint(9) NOT NULL AUTO_INCREMENT,
+  //     time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  //     name tinytext NOT NULL,
+  //     email tinytext NOT NULL,
+  //     message text NOT NULL,
+  //     PRIMARY KEY (id)
+  //   ) $charset_collate;";
+
+  //   require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+  //   dbDelta($sql);
+
+  //   add_option('rftw_db_version', $rftw_db_version);
+  // }
+
+  // public function delete_db_table()
+  // { }
 }
 
 if (class_exists('ReactFormToWP')) {
@@ -69,3 +87,6 @@ register_activation_hook(__FILE__, array($reactFromToWP, 'activate'));
 register_deactivation_hook(__FILE__, array($reactFromToWP, 'deactivate'));
 
 // uninstall
+// if (defined('WP_UNINSTALL_PLUGIN')) {
+//   register_uninstall_hook(__FILE__, array($reactFromToWP, 'uninstall'));
+// }
