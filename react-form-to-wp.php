@@ -46,7 +46,7 @@ class ReactFormToWP
 
   public function custom_post_type()
   {
-    register_post_type('form', ['public' => true, 'label' => 'Form']);
+    register_post_type('form', ['public' => true, 'label' => 'Form', 'supports' => array('title')]);
   }
 
   // public function create_db_table()
