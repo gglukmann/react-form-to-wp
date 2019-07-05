@@ -24,6 +24,8 @@ class ReactFormToWP
   {
     add_action('init', array($this, 'custom_post_type'));
     add_action('init', array($this, 'custom_field_group'));
+    add_action('manage_form_posts_custom_column', array($this, 'form_custom_columns'));
+    add_filter('manage_edit-form_columns', array($this, 'form_columns'));
   }
 
   public function activate()
@@ -129,6 +131,30 @@ class ReactFormToWP
         'required' => 1,
         'parent' => 'form_data',
       ));
+    }
+  }
+
+  function form_columns($columns)
+  {
+    $columns = array(
+      'cb' => '< input type="checkbox" />',
+      'title' => 'Title',
+      'email' => 'Email',
+      'number' => 'Number',
+      'message' => 'Message',
+    );
+    return $columns;
+  }
+
+  function form_custom_columns($column)
+  {
+    global $post;
+    if ($column == 'email') {
+      echo get_field('email', $post->ID);
+    } else if ($column == 'number') {
+      echo get_field('number', $post->ID);
+    } else if ($column == 'message') {
+      echo get_field('message', $post->ID);
     }
   }
 }
