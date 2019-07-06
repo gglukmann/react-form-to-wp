@@ -131,6 +131,15 @@ class ReactFormToWP
         'required' => 1,
         'parent' => 'form_data',
       ));
+
+      acf_add_local_field(array(
+        'key' => 'time',
+        'label' => 'Time',
+        'name' => 'time',
+        'type' => 'text',
+        'required' => 1,
+        'parent' => 'form_data',
+      ));
     }
   }
 
@@ -142,6 +151,7 @@ class ReactFormToWP
       'email' => 'Email',
       'number' => 'Number',
       'message' => 'Message',
+      'time' => 'Time',
     );
     return $columns;
   }
@@ -149,12 +159,22 @@ class ReactFormToWP
   function form_custom_columns($column)
   {
     global $post;
-    if ($column == 'email') {
-      echo get_field('email', $post->ID);
-    } else if ($column == 'number') {
-      echo get_field('number', $post->ID);
-    } else if ($column == 'message') {
-      echo get_field('message', $post->ID);
+
+    switch ($column) {
+      case 'email':
+        echo get_field('email', $post->ID);
+        break;
+      case 'number':
+        echo get_field('number', $post->ID);
+        break;
+      case 'message':
+        echo get_field('message', $post->ID);
+        break;
+      case 'time':
+        echo get_field('time', $post->ID);
+        break;
+      default:
+        return;
     }
   }
 }
