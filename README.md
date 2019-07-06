@@ -17,4 +17,5 @@ update_field('name', $contactName, $post_id);
 update_field('email', $contactEmail, $post_id);
 update_field('phone', $contactPhone, $post_id);
 update_field('message', $contactMessage, $post_id);
+update_field('time', date('d.m.Y H:i:s'), $post_id);
 ```
