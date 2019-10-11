@@ -10,7 +10,7 @@ Description: React From to Wordpress
 Version: 1.0.0
 Author: Gert Glükmann
 Author URI: https://github.com/gglukmann
-License: GPLv2 or later
+License: GPLv3
 Text-Domain: react-form-to-wp
  */
 
