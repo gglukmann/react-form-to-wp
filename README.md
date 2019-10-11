@@ -1,5 +1,7 @@
 # react-form-to-wp
 
+Wordpress plugin. Save contact form fields from React POST query to Wordpress.
+
 ### Installation
 
 - Add to WP and activate

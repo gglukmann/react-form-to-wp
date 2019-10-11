@@ -6,7 +6,7 @@
 /*
 Plugin Name: React Form To WP
 Plugin URI: https://github.com/gglukmann/react-form-to-wp
-Description: React From to Wordpress
+Description: Save contact form fields from React POST query to Wordpress.
 Version: 1.0.0
 Author: Gert Glükmann
 Author URI: https://github.com/gglukmann
