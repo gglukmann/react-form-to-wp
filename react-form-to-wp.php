@@ -146,10 +146,10 @@ class ReactFormToWP
   function form_columns($columns)
   {
     $columns = array(
-      'cb' => '< input type="checkbox" />',
+      'cb' => '<input type="checkbox" />',
       'title' => 'Title',
       'email' => 'Email',
-      'number' => 'Number',
+      'phone' => 'Phone',
       'message' => 'Message',
       'time' => 'Time',
     );
@@ -164,8 +164,8 @@ class ReactFormToWP
       case 'email':
         echo get_field('email', $post->ID);
         break;
-      case 'number':
-        echo get_field('number', $post->ID);
+      case 'phone':
+        echo get_field('phone', $post->ID);
         break;
       case 'message':
         echo get_field('message', $post->ID);
