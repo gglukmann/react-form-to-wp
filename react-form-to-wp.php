@@ -180,11 +180,11 @@ class ReactFormToWP
 }
 
 if (class_exists('ReactFormToWP')) {
-  $reactFromToWP = new ReactFormToWP();
+  $reactFormToWP = new ReactFormToWP();
 }
 
 // activation
-register_activation_hook(__FILE__, array($reactFromToWP, 'activate'));
+register_activation_hook(__FILE__, array($reactFormToWP, 'activate'));
 
 // deactivate
-register_deactivation_hook(__FILE__, array($reactFromToWP, 'deactivate'));
+register_deactivation_hook(__FILE__, array($reactFormToWP, 'deactivate'));
